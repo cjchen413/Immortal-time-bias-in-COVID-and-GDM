@@ -145,12 +145,155 @@ proc sql;
   order by id;
 quit;
 
-/* Diagnose Long COVID and Severe COVID using outpatient/inpatient records */
-
-/* Outpatient records: Long COVID (U09.9) */
+/* Full macro implementation for claims-based COVID detection including L_COVID and S_COVID */
 %macro CD(a);
 data CD109&a.;
   set org.h_nhi_opdte109&a._10 (keep=id func_date icd9cm_1 icd9cm_2 icd9cm_3);
+  /*COVID*/
+  if substr(icd9cm_1,1,3) in ("U10") or
+     substr(icd9cm_2,1,3) in ("U10") or
+     substr(icd9cm_3,1,3) in ("U10") or
+     substr(icd9cm_1,1,4) in ("U071","U072","U099") or
+     substr(icd9cm_2,1,4) in ("U071","U072","U099") or
+     substr(icd9cm_3,1,4) in ("U071","U072","U099") or
+     substr(icd9cm_1,1,5) in ("B9729","J1282","Z8616") or
+     substr(icd9cm_2,1,5) in ("B9729","J1282","Z8616") or
+     substr(icd9cm_3,1,5) in ("B9729","J1282","Z8616") then COVID=1;
+  if COVID=1 then output;
+  drop icd9cm_1 icd9cm_2 icd9cm_3;
+run;
+%do y=110 %to 111;
+data CD&y.&a.;
+  set org_6.h_nhi_opdte&y.&a._10 (keep=id func_date icd9cm_1 icd9cm_2 icd9cm_3);
+  /*COVID*/
+  if substr(icd9cm_1,1,3) in ("U10") or
+     substr(icd9cm_2,1,3) in ("U10") or
+     substr(icd9cm_3,1,3) in ("U10") or
+     substr(icd9cm_1,1,4) in ("U071","U072","U099") or
+     substr(icd9cm_2,1,4) in ("U071","U072","U099") or
+     substr(icd9cm_3,1,4) in ("U071","U072","U099") or
+     substr(icd9cm_1,1,5) in ("B9729","J1282","Z8616") or
+     substr(icd9cm_2,1,5) in ("B9729","J1282","Z8616") or
+     substr(icd9cm_3,1,5) in ("B9729","J1282","Z8616") then COVID=1;
+  if COVID=1 then output;
+  drop icd9cm_1 icd9cm_2 icd9cm_3;
+run;
+%end;
+%mend;
+%CD(01)%CD(02)%CD(03)%CD(04)%CD(05)%CD(06)
+%CD(07)%CD(08)%CD(09)%CD(10)%CD(11)%CD(12)
+
+%macro CD2;
+%do y=109 %to 111;
+data CD&y.;
+  set CD&y.01-CD&y.12;
+run;
+%end;
+%mend;
+%CD2
+
+data COVID.CD;
+  set CD109-CD111;
+run;
+
+%macro DD;
+data DD109;
+  set org.h_nhi_ipdte109 (keep=id in_date icd9cm_1 icd9cm_2 icd9cm_3 icd9cm_4 icd9cm_5);
+  /*COVID*/
+  if substr(icd9cm_1,1,3) in ("U10") or
+     substr(icd9cm_2,1,3) in ("U10") or
+     substr(icd9cm_3,1,3) in ("U10") or
+     substr(icd9cm_4,1,3) in ("U10") or
+     substr(icd9cm_5,1,3) in ("U10") or
+     substr(icd9cm_1,1,4) in ("U071","U072","U099") or
+     substr(icd9cm_2,1,4) in ("U071","U072","U099") or
+     substr(icd9cm_3,1,4) in ("U071","U072","U099") or
+     substr(icd9cm_4,1,4) in ("U071","U072","U099") or
+     substr(icd9cm_5,1,4) in ("U071","U072","U099") or
+     substr(icd9cm_1,1,5) in ("B9729","J1282","Z8616") or
+     substr(icd9cm_2,1,5) in ("B9729","J1282","Z8616") or
+     substr(icd9cm_3,1,5) in ("B9729","J1282","Z8616") or
+     substr(icd9cm_4,1,5) in ("B9729","J1282","Z8616") or
+     substr(icd9cm_5,1,5) in ("B9729","J1282","Z8616") then COVID=1;
+  if COVID=1 then output;
+  drop icd9cm_1 icd9cm_2 icd9cm_3 icd9cm_4 icd9cm_5;
+run;
+%do y=110 %to 111;
+data DD&y.;
+  set org_6.h_nhi_ipdte&y. (keep=id in_date icd9cm_1 icd9cm_2 icd9cm_3 icd9cm_4 icd9cm_5);
+  /*COVID*/
+  if substr(icd9cm_1,1,3) in ("U10") or
+     substr(icd9cm_2,1,3) in ("U10") or
+     substr(icd9cm_3,1,3) in ("U10") or
+     substr(icd9cm_4,1,3) in ("U10") or
+     substr(icd9cm_5,1,3) in ("U10") or
+     substr(icd9cm_1,1,4) in ("U071","U072","U099") or
+     substr(icd9cm_2,1,4) in ("U071","U072","U099") or
+     substr(icd9cm_3,1,4) in ("U071","U072","U099") or
+     substr(icd9cm_4,1,4) in ("U071","U072","U099") or
+     substr(icd9cm_5,1,4) in ("U071","U072","U099") or
+     substr(icd9cm_1,1,5) in ("B9729","J1282","Z8616") or
+     substr(icd9cm_2,1,5) in ("B9729","J1282","Z8616") or
+     substr(icd9cm_3,1,5) in ("B9729","J1282","Z8616") or
+     substr(icd9cm_4,1,5) in ("B9729","J1282","Z8616") or
+     substr(icd9cm_5,1,5) in ("B9729","J1282","Z8616") then COVID=1;
+  if COVID=1 then output;
+  drop icd9cm_1 icd9cm_2 icd9cm_3 icd9cm_4 icd9cm_5;
+run;
+%end;
+data COVID.DD;
+  set DD109-DD111;
+run;
+%mend;
+%DD
+
+%macro CDDD(y);
+/*CD*/
+data CD_&y.;
+  set COVID.CD;
+  where &y.=1;
+  rename func_date=&y._date;
+  keep ID &y. func_date;
+run;
+
+proc sort data=CD_&y.; by ID &y._date; run;
+
+/*DD*/
+data DD_&y.;
+  set COVID.DD;
+  where &y.=1;
+  rename in_date=&y._date;
+  keep ID &y. in_date;
+run;
+
+proc sort data=DD_&y.; by ID &y._date; run;
+
+/*ALL*/
+data &y.; set CD_&y. DD_&y.; run;
+
+proc sort data=&y.; by ID &y._date; run;
+
+data &y.;
+  set &y.;
+  by ID &y._date;
+  if first.ID then output;
+  keep id &y. &y._date;
+run;
+%mend;
+%CDDD(COVID)
+
+data covid.covid_cddd;
+  set covid;
+  covid_date1 = input(covid_date, yymmdd10.);
+  format covid_date1 yymmdd10.;
+  drop covid_date;
+run;
+
+/* See macros: %CD, %DD, %CDDD, %CDDD1 (Long COVID), %CDDD2 (Severe COVID) */
+%macro CD(a);
+data CD109&a.;
+  set org.h_nhi_opdte109&a._10 (keep=id func_date icd9cm_1 icd9cm_2 icd9cm_3);
+  /*Long COVID*/
   if substr(icd9cm_1,1,4) in ("U099") or
      substr(icd9cm_2,1,4) in ("U099") or
      substr(icd9cm_3,1,4) in ("U099") then L_COVID=1;
@@ -160,6 +303,7 @@ run;
 %do y=110 %to 111;
 data CD&y.&a.;
   set org_6.h_nhi_opdte&y.&a._10 (keep=id func_date icd9cm_1 icd9cm_2 icd9cm_3);
+  /*Long COVID*/
   if substr(icd9cm_1,1,4) in ("U099") or
      substr(icd9cm_2,1,4) in ("U099") or
      substr(icd9cm_3,1,4) in ("U099") then L_COVID=1;
@@ -171,7 +315,6 @@ run;
 %CD(01)%CD(02)%CD(03)%CD(04)%CD(05)%CD(06)
 %CD(07)%CD(08)%CD(09)%CD(10)%CD(11)%CD(12)
 
-/* Combine outpatient Long COVID records */
 %macro CD2;
 %do y=109 %to 111;
 data CD&y.;
@@ -185,30 +328,41 @@ data COVID.CD_L_COVID;
   set CD109-CD111;
 run;
 
-/* Inpatient records: Long COVID (U09.9) and Severe COVID (U07.1) */
 %macro DD;
 data DD109;
-  set org.h_nhi_ipdte109 (keep=id in_date icd9cm_1-icd9cm_5);
-  if substr(icd9cm_1,1,4) in ("U099") or substr(icd9cm_2,1,4) in ("U099") or
-     substr(icd9cm_3,1,4) in ("U099") or substr(icd9cm_4,1,4) in ("U099") or
+  set org.h_nhi_ipdte109 (keep=id in_date icd9cm_1 icd9cm_2 icd9cm_3 icd9cm_4 icd9cm_5);
+  /*Long COVID*/
+  if substr(icd9cm_1,1,4) in ("U099") or
+     substr(icd9cm_2,1,4) in ("U099") or
+     substr(icd9cm_3,1,4) in ("U099") or
+     substr(icd9cm_4,1,4) in ("U099") or
      substr(icd9cm_5,1,4) in ("U099") then L_COVID=1;
-  if substr(icd9cm_1,1,4) in ("U071") or substr(icd9cm_2,1,4) in ("U071") or
-     substr(icd9cm_3,1,4) in ("U071") or substr(icd9cm_4,1,4) in ("U071") or
+  /*Sever COVID*/
+  if substr(icd9cm_1,1,4) in ("U071") or
+     substr(icd9cm_2,1,4) in ("U071") or
+     substr(icd9cm_3,1,4) in ("U071") or
+     substr(icd9cm_4,1,4) in ("U071") or
      substr(icd9cm_5,1,4) in ("U071") then S_COVID=1;
-  if L_COVID=1 or S_COVID=1 then output;
-  drop icd9cm_1-icd9cm_5;
+  if L_COVID=1 or S_COVID then output;
+  drop icd9cm_1 icd9cm_2 icd9cm_3 icd9cm_4 icd9cm_5;
 run;
 %do y=110 %to 111;
 data DD&y.;
-  set org_6.h_nhi_ipdte&y. (keep=id in_date icd9cm_1-icd9cm_5);
-  if substr(icd9cm_1,1,4) in ("U099") or substr(icd9cm_2,1,4) in ("U099") or
-     substr(icd9cm_3,1,4) in ("U099") or substr(icd9cm_4,1,4) in ("U099") or
+  set org_6.h_nhi_ipdte&y. (keep=id in_date icd9cm_1 icd9cm_2 icd9cm_3 icd9cm_4 icd9cm_5);
+  /*Long COVID*/
+  if substr(icd9cm_1,1,4) in ("U099") or
+     substr(icd9cm_2,1,4) in ("U099") or
+     substr(icd9cm_3,1,4) in ("U099") or
+     substr(icd9cm_4,1,4) in ("U099") or
      substr(icd9cm_5,1,4) in ("U099") then L_COVID=1;
-  if substr(icd9cm_1,1,4) in ("U071") or substr(icd9cm_2,1,4) in ("U071") or
-     substr(icd9cm_3,1,4) in ("U071") or substr(icd9cm_4,1,4) in ("U071") or
+  /*Sever COVID*/
+  if substr(icd9cm_1,1,4) in ("U071") or
+     substr(icd9cm_2,1,4) in ("U071") or
+     substr(icd9cm_3,1,4) in ("U071") or
+     substr(icd9cm_4,1,4) in ("U071") or
      substr(icd9cm_5,1,4) in ("U071") then S_COVID=1;
-  if L_COVID=1 or S_COVID=1 then output;
-  drop icd9cm_1-icd9cm_5;
+  if L_COVID=1 or S_COVID then output;
+  drop icd9cm_1 icd9cm_2 icd9cm_3 icd9cm_4 icd9cm_5;
 run;
 %end;
 data COVID.DD_L_COVID;
@@ -217,27 +371,30 @@ run;
 %mend;
 %DD
 
-/* Create earliest Long COVID diagnosis date */
 %macro CDDD1(y);
+/*CD*/
 data CD_&y.;
   set COVID.CD_L_COVID;
   where &y.=1;
   rename func_date=&y._date;
   keep ID &y. func_date;
 run;
+
 proc sort data=CD_&y.; by ID &y._date; run;
 
+/*DD*/
 data DD_&y.;
   set COVID.DD_L_COVID;
   where &y.=1;
   rename in_date=&y._date;
   keep ID &y. in_date;
 run;
+
 proc sort data=DD_&y.; by ID &y._date; run;
 
-data &y.;
-  set CD_&y. DD_&y.;
-run;
+/*ALL*/
+data &y.; set CD_&y. DD_&y.; run;
+
 proc sort data=&y.; by ID &y._date; run;
 
 data &y.;
@@ -249,19 +406,22 @@ run;
 %mend;
 %CDDD1(L_COVID)
 
-/* Create earliest Severe COVID admission date */
 %macro CDDD2(y);
+/*DD*/
 data DD_&y.;
   set COVID.DD_L_COVID;
   where &y.=1;
   rename in_date=&y._date;
   keep ID &y. in_date;
 run;
+
 proc sort data=DD_&y.; by ID &y._date; run;
 
+/*ALL*/
 data &y.;
   set DD_&y.;
 run;
+
 proc sort data=&y.; by ID &y._date; run;
 
 data &y.;
