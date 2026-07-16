@@ -1,0 +1,7 @@
+{
+  "bundle": "t004_step1_lmp_region_classification",
+  "source_file": "Step 1.Pregnancy Data Preprocessing and LMP Estimation.sas",
+  "source_blob_sha": "5b748168d9c7d21326c92b1ecdecc59d9a179363",
+  "source_commit": "f925968c87c4d58ccac452e850faf017038ac630",
+  "notes": "LMP-date/age-at-conception derivation plus the Taiwan residence-region classification block (TRA_M -> living_p1/living_p2), which maps a Chinese-language NHIRD county name to the paper's numeric region code via a 22-way substr() lookup. LIBNAME source replaced with a 6-row mock birth-registry extract shaped like BR.BRall. The substr() lengths were adjusted from the original's byte counts (6/4, i.e. 3/2 Chinese characters under the DBCS Windows SAS session this repo was authored in) to Jenner's character counts (3/2), since Jenner counts UTF-8 characters rather than bytes for SUBSTR -- see the accompanying regression test filed for that engine behavior. The county-to-code lookup table itself is untouched."
+}

@@ -1,0 +1,7 @@
+{
+  "bundle": "t001_step7_censoring_derivation",
+  "source_file": "Step 7.Variable Derivation for Case-Control and Cohort Analyses.sas",
+  "source_blob_sha": "6e942baf628eb417ffaf5c03ec0039a8bac2bcb5",
+  "source_commit": "f925968c87c4d58ccac452e850faf017038ac630",
+  "notes": "Cohort-side 'Define derived variables' block (sub7_2 -> sub7_3): builds the immortal-time-bias censoring date as min(GDM date, death date, 31DEC2022), derives survival time from two index points (LMP-based and 24-weeks-gestation-based), and flags whether the GDM event falls inside each window. Reproduced verbatim except for the LIBNAME source, replaced with a 6-row mock cohort shaped like sub.sub6_v6_cohort. age_ga24 was recomputed from age/birthday directly since BIRTH_YM_M (a Step-1-only field) isn't present in the mock; the array-based min-date censoring, event flags and ga_gdm grouping are untouched from the original."
+}

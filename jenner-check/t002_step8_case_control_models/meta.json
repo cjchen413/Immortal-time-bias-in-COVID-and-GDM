@@ -1,0 +1,7 @@
+{
+  "bundle": "t002_step8_case_control_models",
+  "source_file": "Step 8.Descriptive and Regression Analyses.sas",
+  "source_blob_sha": "6b9ba76a84b76cb1df58d25304b16b063b72791b",
+  "source_commit": "f925968c87c4d58ccac452e850faf017038ac630",
+  "notes": "The 'Case-Control: Analysis' block: Table 1 descriptive stats (PROC MEANS by ccid), a t-test on age, chi-square association tests (PROC FREQ) between COVID exposure/covariates and case status, and the first two of the paper's conditional-logistic-style PROC LOGISTIC models (unadjusted COVID+age+region, then the fuller covariate-adjusted model). Reproduced verbatim except for the LIBNAME source, replaced with a 20-row mock matched case-control cohort shaped like sub.sub7_v6_case_ctrl. The third (interaction-term) LOGISTIC model and the sensitivity/cohort/PHREG sections further down the original script were left out of this bundle to keep it focused; Covid_ModerateorSevere_Status1 was dropped from the class statement since it isn't in the mock schema and isn't referenced in the model statement."
+}
