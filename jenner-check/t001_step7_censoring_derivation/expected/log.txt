@@ -1,0 +1,31 @@
+NOTE: Jenner v1.5.30 (build v1.5.30+unknown.20260715T062217Z.x86_64-unknown-linux-gnu)
+
+NOTE: Option OBS changed to 100.
+NOTE: DATA sub7_1
+
+NOTE: Processing inline DATALINES (6 lines)
+
+NOTE: Read 6 rows from DATALINES.
+NOTE: Wrote sub7_1 (6 rows, 15 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: DATA sub7_2
+
+
+NOTE: Read 6 rows from sub7_1.
+NOTE: Wrote sub7_2 (6 rows, 23 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: DATA sub7_3
+
+
+NOTE: Read 6 rows from sub7_2.
+NOTE: Wrote sub7_3 (6 rows, 33 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: PROC PRINT data=sub7_3
+
+NOTE: PROC PRINT completed: 6 observations printed, 12 variables

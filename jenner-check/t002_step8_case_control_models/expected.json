@@ -1,0 +1,15 @@
+{
+  "_captured_at": "2026-07-16T04:45:00Z",
+  "_captured_run_id": "r_112bb49a10df41ed9e977d94af1d5b40",
+  "status": "ok",
+  "exit_code": 0,
+  "log_contains": [
+    "NOTE: Wrote sub8_case_ctrl (20 rows, 14 columns).",
+    "NOTE: PROC MEANS statement used.",
+    "NOTE: PROC TTEST statement used.",
+    "NOTE: PROC FREQ statement used.",
+    "NOTE: PROC LOGISTIC completed. Results written to: ./ods_output/logistic_results.spec.json"
+  ],
+  "log_does_not_contain": ["ERROR:", "[JENNER-ERROR"],
+  "diagnostics": {"parse_warnings": [], "runtime_warnings": []}
+}

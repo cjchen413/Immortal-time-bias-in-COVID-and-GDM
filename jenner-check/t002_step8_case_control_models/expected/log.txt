@@ -1,0 +1,50 @@
+NOTE: Jenner v1.5.30 (build v1.5.30+unknown.20260715T062217Z.x86_64-unknown-linux-gnu)
+
+NOTE: Option OBS changed to 100.
+NOTE: DATA sub8_case_ctrl
+
+NOTE: Processing inline DATALINES (20 lines)
+
+NOTE: Read 20 rows from DATALINES.
+NOTE: Wrote sub8_case_ctrl (20 rows, 14 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: PROC MEANS
+NOTE: PROC MEANS statement used.
+NOTE: PROC MEANS
+NOTE: PROC MEANS statement used.
+NOTE: PROC TTEST data=sub8_case_ctrl
+
+NOTE: ODS plot written: ttest_summary.spec.json
+NOTE: PROC TTEST ODS Graphics generated.
+NOTE: PROC TTEST statement used.
+NOTE: PROC FREQ
+NOTE: ODS plot written: freq_mosaic_covid_ccid.spec.json
+NOTE: PROC FREQ statement used.
+NOTE: PROC FREQ
+NOTE: ODS plot written: freq_mosaic_covid_lmp_ccid.spec.json
+NOTE: PROC FREQ statement used.
+NOTE: PROC FREQ
+NOTE: ODS plot written: freq_mosaic_s_covid_ccid.spec.json
+NOTE: ODS plot written: freq_mosaic_vac_count_new_ccid.spec.json
+NOTE: ODS plot written: freq_mosaic_obese_new_ccid.spec.json
+NOTE: ODS plot written: freq_mosaic_pos_new_ccid.spec.json
+NOTE: ODS plot written: freq_mosaic_living_p1_ccid.spec.json
+NOTE: ODS plot written: freq_mosaic_income_ccid.spec.json
+NOTE: ODS plot written: freq_mosaic_nat_ccid.spec.json
+NOTE: PROC FREQ statement used.
+NOTE: PROC LOGISTIC data=sub8_case_ctrl
+
+NOTE: Using Python statsmodels.api.Logit version 0.14.6
+NOTE: ODS plot written: logistic_oddsratio.spec.json
+NOTE: ODS plot written: logistic_roc.spec.json
+NOTE: PROC LOGISTIC ODS Graphics generated.
+NOTE: PROC LOGISTIC completed. Results written to: ./ods_output/logistic_results.spec.json
+NOTE: PROC LOGISTIC data=sub8_case_ctrl
+
+NOTE: Using Python statsmodels.api.Logit version 0.14.6
+NOTE: ODS plot written: logistic_oddsratio.spec.json
+NOTE: ODS plot written: logistic_roc.spec.json
+NOTE: PROC LOGISTIC ODS Graphics generated.
+NOTE: PROC LOGISTIC completed. Results written to: ./ods_output/logistic_results.spec.json

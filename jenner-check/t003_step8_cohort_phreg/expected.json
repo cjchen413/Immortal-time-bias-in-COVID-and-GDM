@@ -1,0 +1,13 @@
+{
+  "_captured_at": "2026-07-16T05:00:00Z",
+  "_captured_run_id": "r_29be3bc062dc4823bd5ab5411ff8e9ca",
+  "status": "ok",
+  "exit_code": 0,
+  "log_contains": [
+    "NOTE: Wrote sub8_cohort (16 rows, 15 columns).",
+    "NOTE: PROC PHREG data=sub8_cohort",
+    "NOTE: PROC PHREG spec written to: ./ods_output/phreg_basic.spec.json"
+  ],
+  "log_does_not_contain": ["ERROR:", "[JENNER-ERROR"],
+  "diagnostics": {"parse_warnings": [], "runtime_warnings": []}
+}

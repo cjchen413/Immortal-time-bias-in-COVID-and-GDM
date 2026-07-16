@@ -1,0 +1,7 @@
+{
+  "bundle": "t003_step8_cohort_phreg",
+  "source_file": "Step 8.Descriptive and Regression Analyses.sas",
+  "source_blob_sha": "6b9ba76a84b76cb1df58d25304b16b063b72791b",
+  "source_commit": "f925968c87c4d58ccac452e850faf017038ac630",
+  "notes": "The 'Cohort: Analysis' block: Table S1 descriptive stats, chi-square tests, and Table S2 Cox regression -- the %adjusted1/%adjusted2 macros run against time_LMP/event_LMP via PROC PHREG with RISKLIMITS. This is the paper's immortal-time-bias-corrected survival model. Macro definitions reproduced verbatim; only invoked for the LMP-indexed time/event pair (the 24-week-indexed pair is the same macros re-invoked with different args in the original and was left out to keep the bundle focused). LIBNAME source replaced with a 16-row mock cohort shaped like sub.sub7_v6_cohort. Covid_ModerateorSevere_Status1 dropped from %adjusted2's class statement (not in mock schema, not referenced in the model statement)."
+}
